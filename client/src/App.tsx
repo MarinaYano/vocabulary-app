@@ -4,6 +4,7 @@ import Layout from './pages/Layout'
 import Home from './pages/Home'
 import { ThemeProvider } from "@/components/theme-provider"
 import Save from './pages/Save'
+import FlashCard from './pages/FlashCard'
 
 function App() {
 
@@ -14,6 +15,7 @@ function App() {
           <Route path='/' element={<Layout />}>
             <Route index element={<Home />} />
             <Route path='/save' element={<Save />} />
+            <Route path='/flashcard' element={<FlashCard />} />
           </Route>
         </Routes>
       </Router>
