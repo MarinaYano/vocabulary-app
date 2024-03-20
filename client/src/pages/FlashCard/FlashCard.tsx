@@ -6,7 +6,7 @@ const FlashCard = () => {
     <div className="my-20">
       <p className="my-4">Let's check your memory</p>
       <Button>
-        <Link to='test'>Start</Link>
+        <Link to='/signup'>Start</Link>
       </Button>
     </div>
   )
