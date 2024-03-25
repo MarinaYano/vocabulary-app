@@ -4,8 +4,32 @@ import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge"
 import { CiBookmark } from "react-icons/ci";
+import { useEffect } from "react";
 
 const Home = () => {
+  useEffect(() => {
+    const fetchWord = async () => {
+      const url = 'https://wordsapiv1.p.rapidapi.com/words/vocabulary';
+      const options = {
+        method: 'GET',
+        headers: {
+          'X-RapidAPI-Key': import.meta.env.VITE_WORDS_API_KEY as string,
+          'X-RapidAPI-Host': 'wordsapiv1.p.rapidapi.com'
+        }
+      };
+
+      try {
+        const response = await fetch(url, options);
+        const result = await response.text();
+        console.log(result);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
+    fetchWord()
+  }, [])
+
   return (
     <>
       <form action="" className="py-0.5 px-5 rounded max-w-sm my-6 mx-auto flex justify-between outline-none">
