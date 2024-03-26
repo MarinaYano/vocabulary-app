@@ -1,4 +1,17 @@
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog"
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
 import { CiBookmark } from "react-icons/ci";
 import { Badge } from "@/components/ui/badge"
 
@@ -9,7 +22,26 @@ const WordCard = ({ definition, partOfSpeech, example, synonyms, query }: any) =
         <CardHeader>
           <CardTitle>{query}</CardTitle>
           <p>{partOfSpeech}</p>
-          <CiBookmark />
+          
+          <AlertDialog>
+            <AlertDialogTrigger asChild>
+              <Button variant="outline"><CiBookmark /></Button>
+            </AlertDialogTrigger>
+            <AlertDialogContent>
+              <AlertDialogHeader>
+                <AlertDialogTitle>Save this word to your wordbook</AlertDialogTitle>
+                <Input className="mx-2" />
+                <AlertDialogDescription>
+                  You can save this word with your note.
+                </AlertDialogDescription>
+              </AlertDialogHeader>
+              <AlertDialogFooter>
+                <AlertDialogCancel>Cancel</AlertDialogCancel>
+                <AlertDialogAction>Save</AlertDialogAction>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialog>
+
         </CardHeader>
         <CardContent>
           <p>{definition}</p>
