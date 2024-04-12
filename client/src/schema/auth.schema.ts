@@ -1,7 +1,7 @@
 import { z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
  
-export const signupSchema = z.object({
+export const authSchema = z.object({
   username: z
     .string()
     .min(2, {
@@ -19,5 +19,5 @@ export const signupSchema = z.object({
     })
 })
 
-export type SignupSchema = z.infer<typeof signupSchema>;
-export const signupResolver = zodResolver(signupSchema);
+export type AuthSchema = z.infer<typeof authSchema>;
+export const authResolver = zodResolver(authSchema);
