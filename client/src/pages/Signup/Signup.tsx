@@ -1,27 +1,72 @@
 import { Button } from "@/components/ui/button"
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
-import { Link } from "react-router-dom"
+import { authSchema } from "@/schema/auth.schema"
+import { z } from "zod"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { useForm } from "react-hook-form"
+import { Link, useNavigate } from 'react-router-dom';
 
 const Signup = () => {
+  const form = useForm({
+    resolver: zodResolver(authSchema),
+    defaultValues: {
+      username: "",
+      password: "",
+    }
+  })
+
+  function onSubmit(values: z.infer<typeof authSchema>) {
+    console.log(values)
+  }
+
   return (
-    <div className="flex flex-col gap-6 my-0 mx-auto w-80 border border-solid border-zinc-300 rounded-lg py-8 px-5 text-left">
-      <div className="text-lg font-semibold">
-        <h1>Create an account</h1>
-      </div>
-      <form className="flex flex-col gap-4">
-      <div className="flex flex-col">
-          <label className="font-medium pb-2">username</label>
-          <Input type="text" placeholder="Enter username ..." className="" />
-        </div>
-        <div className="flex flex-col">
-          <label className="font-medium pb-2">password</label>
-          <Input type="password" placeholder="Enter password ..." className="" />
-        </div>
-        <div className="mt-2 flex justify-between">
-          <Button>Sign Up</Button>
-          <Link to='/login'><Button variant="link">Login</Button></Link>
-        </div>
-      </form>
+    <div className="border solid rounded w-80 mx-auto">
+      <Form {...form}>
+        <form onSubmit={form.handleSubmit(onSubmit)} className="w-72 min-w-64 my-5 mx-auto space-y-8">
+        <h3 className="text-lg font-semibold mt-5">Sign Up</h3>
+          <FormField
+            control={form.control}
+            name="username"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Username</FormLabel>
+                <FormControl>
+                  <Input type="text" {...field} />
+                </FormControl>
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="password"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Password</FormLabel>
+                <FormControl>
+                  <Input type="password" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <div className="flex justify-between items-center">
+            <Button type="submit">Submit</Button>
+            <Link to='/login'>
+              <span className="px-4 py-2 text-sm font-medium">
+                Login
+              </span>
+            </Link>
+          </div>
+        </form>
+      </Form>
     </div>
   )
 }
