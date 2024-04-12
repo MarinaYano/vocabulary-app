@@ -1,7 +1,8 @@
 import express from "express";
 import dotenv from "dotenv"
-
+import cors from 'cors';
 import authRoutes from "./routes/auth.routes";
+import wordBookRoutes from "./routes/wordBook.routes";
 import connectToMongoDB from "./db/connectToMongoDB";
 
 const app: express.Express = express();
@@ -11,10 +12,17 @@ dotenv.config()
 
 app.use(express.json());
 
+app.use(cors({
+  origin: 'http://localhost:5173',
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  optionsSuccessStatus: 200 
+}))
+
 app.use("/api/auth", authRoutes)
+app.use("/api/words", wordBookRoutes)
 
 app.get("/", (req: express.Request, res: express.Response) => {
-  res.send("Hello, Node");
+  console.log('Hello Node')
 });
 
 

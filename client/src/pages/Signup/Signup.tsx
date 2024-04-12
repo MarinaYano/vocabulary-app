@@ -12,7 +12,10 @@ import { authSchema } from "@/schema/auth.schema"
 import { z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
+import axios from 'axios'
 import { Link, useNavigate } from 'react-router-dom';
+import { useState } from "react"
+import toast from "react-hot-toast";
 
 const Signup = () => {
   const form = useForm({
@@ -22,8 +25,22 @@ const Signup = () => {
       password: "",
     }
   })
+  const navigate = useNavigate()
+  const [loading, setLoading] = useState<boolean>(false)
 
   function onSubmit(values: z.infer<typeof authSchema>) {
+    setLoading(true)
+    axios.post(`${import.meta.env.VITE_API_URL}/auth/signup`, values)
+    .then(() => {
+      toast.success("Successfully logged in!")
+      navigate('/');
+    })
+    .catch(() => {
+      toast.error("Oops, something went wrong! Try again")
+    })
+    .finally(() => {
+      setLoading(false)
+    })
     console.log(values)
   }
 
